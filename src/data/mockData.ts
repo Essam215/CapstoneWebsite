@@ -1,4 +1,4 @@
-import type { Task, Event, Badge, Notification, LeaderboardEntry, User } from '../types';
+import type { Task, Event, Badge, Notification, LeaderboardEntry } from '../types';
 
 export const mockTasks: Task[] = [
   {

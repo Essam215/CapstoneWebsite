@@ -95,15 +95,20 @@ export const TableRow = ({
 interface TableCellProps {
   children: ReactNode;
   className?: string;
+  colSpan?: number;
 }
 
-export const TableCell = ({ children, className = "" }: TableCellProps) => {
+export const TableCell = ({
+  children,
+  className = "",
+  colSpan,
+}: TableCellProps) => {
   return (
     <td
       className={`px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 ${className}`}
+      colSpan={colSpan}
     >
       {children}
     </td>
   );
 };
-

@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 interface ButtonProps {
   children: ReactNode;
-  onClick?: () => void;
+  // allow event handler with MouseEvent so callers can stopPropagation when needed
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   variant?: "primary" | "secondary" | "outline" | "ghost" | "danger";
   size?: "sm" | "md" | "lg";
   disabled?: boolean;
@@ -23,19 +24,19 @@ export const Button = ({
   fullWidth = false,
 }: ButtonProps) => {
   const baseStyles =
-    "font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2";
+    "font-medium rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-95";
 
   const variants = {
     primary:
-      "bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500 disabled:bg-primary-400",
+      "bg-gradient-to-r from-primary-600 to-primary-500 text-white hover:from-primary-700 hover:to-primary-600 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg",
     secondary:
-      "bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-600 focus:ring-gray-500",
+      "bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-600 focus:ring-gray-500 shadow-sm hover:shadow-md",
     outline:
-      "border-2 border-primary-600 text-primary-600 dark:border-primary-400 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 focus:ring-primary-500",
+      "border-2 border-primary-500 text-primary-600 dark:border-primary-400 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 focus:ring-primary-500",
     ghost:
-      "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:ring-gray-500",
+      "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:ring-gray-500 hover:shadow-sm",
     danger:
-      "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 disabled:bg-red-400",
+      "bg-gradient-to-r from-red-600 to-red-500 text-white hover:from-red-700 hover:to-red-600 focus:ring-red-500 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg",
   };
 
   const sizes = {
@@ -60,4 +61,3 @@ export const Button = ({
     </motion.button>
   );
 };
-

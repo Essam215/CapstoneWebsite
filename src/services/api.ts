@@ -1,5 +1,4 @@
 import axios from 'axios';
-import type { AuthResponse, User } from '../types';
 
 // Create axios instance with base configuration
 const api = axios.create({

@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Modal } from "./Modal";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 import {
@@ -9,7 +10,6 @@ import {
   Calendar,
   Trophy,
   User,
-  Settings,
   LogOut,
   Moon,
   Sun,
@@ -35,6 +35,8 @@ export const Layout = ({ children }: LayoutProps) => {
     navigate("/login");
   };
 
+  const [logoutModalOpen, setLogoutModalOpen] = useState(false);
+
   const navItems = [
     { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { path: "/tasks", label: "Tasks", icon: ClipboardList },
@@ -48,11 +50,14 @@ export const Layout = ({ children }: LayoutProps) => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
@@ -63,7 +68,8 @@ export const Layout = ({ children }: LayoutProps) => {
         animate={{
           x: sidebarOpen ? 0 : "-100%",
         }}
-        className="fixed left-0 top-0 h-full w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 z-50 lg:z-auto lg:translate-x-0"
+        transition={{ type: "spring", damping: 20 }}
+        className="fixed left-0 top-0 h-full w-72 bg-white/90 dark:bg-gray-800/90 border-r border-gray-200/50 dark:border-gray-700/50 backdrop-blur-md z-50 lg:z-auto lg:translate-x-0 shadow-xl"
       >
         <div className="flex flex-col h-full">
           <div className="p-6 border-b border-gray-200 dark:border-gray-700">
@@ -138,17 +144,22 @@ export const Layout = ({ children }: LayoutProps) => {
       {/* Main Content */}
       <div className="lg:pl-64">
         {/* Top Bar */}
-        <header className="sticky top-0 z-30 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-          <div className="flex items-center justify-between px-4 py-4 lg:px-6">
+        <header className="sticky top-0 z-30 bg-white/90 dark:bg-gray-800/90 border-b border-gray-200/50 dark:border-gray-700/50 backdrop-blur-md shadow-sm">
+          <div className="flex items-center justify-between px-4 py-3 lg:px-8">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="lg:hidden p-2 rounded-xl hover:bg-gray-100/80 dark:hover:bg-gray-700/80 transition-colors"
             >
-              {sidebarOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
+              <motion.div
+                animate={{ rotate: sidebarOpen ? 90 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {sidebarOpen ? (
+                  <X className="w-6 h-6" />
+                ) : (
+                  <Menu className="w-6 h-6" />
+                )}
+              </motion.div>
             </button>
 
             <div className="flex items-center gap-4 ml-auto">
@@ -158,6 +169,15 @@ export const Layout = ({ children }: LayoutProps) => {
               >
                 <Bell className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                 <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+              </button>
+              {/* Top-bar logout (quick access) */}
+              <button
+                onClick={() => setLogoutModalOpen(true)}
+                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                aria-label="Logout"
+                title="Logout"
+              >
+                <LogOut className="w-5 h-5 text-red-600 dark:text-red-400" />
               </button>
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center text-white text-sm font-semibold">
@@ -172,8 +192,8 @@ export const Layout = ({ children }: LayoutProps) => {
           </div>
         </header>
 
-        {/* Page Content */}
-        <main className="p-4 lg:p-6">
+  {/* Page Content */}
+  <main className="p-4 lg:p-6 app-container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -183,6 +203,34 @@ export const Layout = ({ children }: LayoutProps) => {
           </motion.div>
         </main>
       </div>
+      {/* Logout confirmation modal */}
+      <Modal
+        isOpen={logoutModalOpen}
+        onClose={() => setLogoutModalOpen(false)}
+        title="Confirm Logout"
+        size="sm"
+      >
+        <div className="space-y-4">
+          <p className="text-gray-700 dark:text-gray-300">Are you sure you want to log out?</p>
+          <div className="flex gap-2 justify-end">
+            <button
+              onClick={() => setLogoutModalOpen(false)}
+              className="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={async () => {
+                setLogoutModalOpen(false);
+                await handleLogout();
+              }}
+              className="px-4 py-2 bg-red-600 text-white rounded-lg"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

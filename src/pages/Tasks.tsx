@@ -99,8 +99,8 @@ export const Tasks = () => {
     } catch (error) {
       console.error("Error loading task:", error);
       // Fallback to basic task data
-      setSelectedTask(task);
-      setIsModalOpen(true);
+    setSelectedTask(task);
+    setIsModalOpen(true);
     }
   };
 
@@ -116,10 +116,10 @@ export const Tasks = () => {
           </p>
         </div>
         {(user?.role === 'admin') && (
-          <Button onClick={() => setIsModalOpen(true)}>
-            <Plus className="w-4 h-4 mr-2" />
-            Create Task
-          </Button>
+        <Button onClick={() => setIsModalOpen(true)}>
+          <Plus className="w-4 h-4 mr-2" />
+          Create Task
+        </Button>
         )}
       </div>
 
@@ -388,8 +388,8 @@ export const Tasks = () => {
                       ))}
                     </div>
                   )}
-                </div>
-                <div className="flex gap-2 pt-4">
+            </div>
+            <div className="flex gap-2 pt-4">
                   <Button
                     variant="primary"
                     onClick={handleSubmitTask}
@@ -398,39 +398,39 @@ export const Tasks = () => {
                   >
                     <Upload className="w-4 h-4 mr-2" />
                     {loading ? "Submitting..." : "Submit Task"}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    fullWidth
+              </Button>
+              <Button
+                variant="outline"
+                fullWidth
                     onClick={() => {
                       setIsModalOpen(false);
                       setSelectedTask(null);
                       setSubmissionText("");
                       setSelectedFiles([]);
                     }}
-                  >
-                    Close
-                  </Button>
-                </div>
-              </div>
+              >
+                Close
+              </Button>
+            </div>
+          </div>
             )}
 
             {/* Close button if no submission form */}
             {((user?.role !== 'student' && user?.role !== 'php') || 
               (selectedTask.submission && selectedTask.submission.status !== 'rejected')) && (
               <div className="flex gap-2 pt-4">
-                <Button
-                  variant="outline"
-                  fullWidth
+            <Button
+              variant="outline"
+              fullWidth
                   onClick={() => {
                     setIsModalOpen(false);
                     setSelectedTask(null);
                     setSubmissionText("");
                     setSelectedFiles([]);
                   }}
-                >
-                  Close
-                </Button>
+            >
+              Close
+            </Button>
               </div>
             )}
           </div>

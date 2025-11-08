@@ -1,25 +1,26 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { Card } from "../components/Card";
 import { Button } from "../components/Button";
 import { Modal } from "../components/Modal";
 import {
   Shield,
   Users,
-  Settings,
   BarChart3,
   CheckCircle,
   XCircle,
-  MessageSquare,
   Calendar,
-  Award,
   FileText,
-  Bell,
 } from "lucide-react";
-import { getStatistics, getPHPMembers, getStudents } from "../services/userService";
+import {
+  getStatistics,
+  getPHPMembers,
+  getStudents,
+} from "../services/userService";
 import { getTaskSubmissions, reviewTask } from "../services/taskService";
-import { getEventApplications, reviewEventApplications } from "../services/eventService";
-import { getNotifications } from "../services/notificationService";
+import {
+  getEventApplications,
+  reviewEventApplications,
+} from "../services/eventService";
 
 export const Admin = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -81,7 +82,10 @@ export const Admin = () => {
     }
   };
 
-  const handleEventReview = async (applicationIds: number[], action: "approve" | "reject") => {
+  const handleEventReview = async (
+    applicationIds: number[],
+    action: "approve" | "reject"
+  ) => {
     try {
       await reviewEventApplications(applicationIds, action);
       loadData();
@@ -143,7 +147,9 @@ export const Admin = () => {
                   <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Total Students</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Total Students
+                  </p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
                     {stats.totalUsers || 0}
                   </p>
@@ -157,7 +163,9 @@ export const Admin = () => {
                   <Shield className="w-6 h-6 text-green-600 dark:text-green-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">PHP Members</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    PHP Members
+                  </p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
                     {stats.totalPHP || 0}
                   </p>
@@ -171,7 +179,9 @@ export const Admin = () => {
                   <FileText className="w-6 h-6 text-yellow-600 dark:text-yellow-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Pending Tasks</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Pending Tasks
+                  </p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
                     {stats.pendingTasks || 0}
                   </p>
@@ -185,7 +195,9 @@ export const Admin = () => {
                   <Calendar className="w-6 h-6 text-purple-600 dark:text-purple-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Pending Events</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Pending Events
+                  </p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
                     {stats.pendingEvents || 0}
                   </p>
@@ -340,15 +352,26 @@ export const Admin = () => {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gray-200 dark:border-gray-700">
-                  <th className="text-left py-2 px-4 text-gray-700 dark:text-gray-300">Name</th>
-                  <th className="text-left py-2 px-4 text-gray-700 dark:text-gray-300">Email</th>
-                  <th className="text-left py-2 px-4 text-gray-700 dark:text-gray-300">Points</th>
-                  <th className="text-left py-2 px-4 text-gray-700 dark:text-gray-300">Rank</th>
+                  <th className="text-left py-2 px-4 text-gray-700 dark:text-gray-300">
+                    Name
+                  </th>
+                  <th className="text-left py-2 px-4 text-gray-700 dark:text-gray-300">
+                    Email
+                  </th>
+                  <th className="text-left py-2 px-4 text-gray-700 dark:text-gray-300">
+                    Points
+                  </th>
+                  <th className="text-left py-2 px-4 text-gray-700 dark:text-gray-300">
+                    Rank
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {phpMembers.map((member: any) => (
-                  <tr key={member.id} className="border-b border-gray-200 dark:border-gray-700">
+                  <tr
+                    key={member.id}
+                    className="border-b border-gray-200 dark:border-gray-700"
+                  >
                     <td className="py-2 px-4 text-gray-900 dark:text-white">
                       {member.first_name} {member.last_name}
                     </td>
@@ -379,15 +402,26 @@ export const Admin = () => {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gray-200 dark:border-gray-700">
-                  <th className="text-left py-2 px-4 text-gray-700 dark:text-gray-300">Name</th>
-                  <th className="text-left py-2 px-4 text-gray-700 dark:text-gray-300">Email</th>
-                  <th className="text-left py-2 px-4 text-gray-700 dark:text-gray-300">Points</th>
-                  <th className="text-left py-2 px-4 text-gray-700 dark:text-gray-300">Rank</th>
+                  <th className="text-left py-2 px-4 text-gray-700 dark:text-gray-300">
+                    Name
+                  </th>
+                  <th className="text-left py-2 px-4 text-gray-700 dark:text-gray-300">
+                    Email
+                  </th>
+                  <th className="text-left py-2 px-4 text-gray-700 dark:text-gray-300">
+                    Points
+                  </th>
+                  <th className="text-left py-2 px-4 text-gray-700 dark:text-gray-300">
+                    Rank
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {students.map((student: any) => (
-                  <tr key={student.id} className="border-b border-gray-200 dark:border-gray-700">
+                  <tr
+                    key={student.id}
+                    className="border-b border-gray-200 dark:border-gray-700"
+                  >
                     <td className="py-2 px-4 text-gray-900 dark:text-white">
                       {student.first_name} {student.last_name}
                     </td>
@@ -441,7 +475,9 @@ export const Admin = () => {
               <input
                 type="number"
                 value={pointsAwarded}
-                onChange={(e) => setPointsAwarded(parseInt(e.target.value) || 0)}
+                onChange={(e) =>
+                  setPointsAwarded(parseInt(e.target.value) || 0)
+                }
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 min="0"
               />

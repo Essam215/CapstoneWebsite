@@ -262,32 +262,32 @@ export const Events = () => {
             {/* Apply button (only for students/php and if not applied or rejected) */}
             {(user?.role === 'student' || user?.role === 'php') && 
              (!selectedEvent.application || selectedEvent.application.status === 'rejected') && (
-              <div className="flex gap-2 pt-4">
-                <Button
-                  variant="primary"
-                  fullWidth
-                  onClick={handleApply}
-                  disabled={
+            <div className="flex gap-2 pt-4">
+              <Button
+                variant="primary"
+                fullWidth
+                onClick={handleApply}
+                disabled={
                     loading ||
                     (selectedEvent.current_participants || selectedEvent.currentParticipants) >=
                     (selectedEvent.max_participants || selectedEvent.maxParticipants)
-                  }
-                >
+                }
+              >
                   {(selectedEvent.current_participants || selectedEvent.currentParticipants) >=
                   (selectedEvent.max_participants || selectedEvent.maxParticipants)
-                    ? "Event Full"
+                  ? "Event Full"
                     : loading
                     ? "Applying..."
-                    : "Apply to Event"}
-                </Button>
-                <Button
-                  variant="outline"
-                  fullWidth
-                  onClick={() => setIsModalOpen(false)}
-                >
-                  Close
-                </Button>
-              </div>
+                  : "Apply to Event"}
+              </Button>
+              <Button
+                variant="outline"
+                fullWidth
+                onClick={() => setIsModalOpen(false)}
+              >
+                Close
+              </Button>
+            </div>
             )}
 
             {/* Close button if no apply button */}

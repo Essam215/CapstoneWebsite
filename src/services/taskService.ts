@@ -1,5 +1,5 @@
 import api from './api';
-import type { Task, TaskSubmission } from '../types';
+import type { Task } from '../types';
 import { mockTasks } from '../data/mockData';
 
 // MVP Mode: Set to true to use mock data (no backend required)

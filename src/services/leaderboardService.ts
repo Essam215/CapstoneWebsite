@@ -31,7 +31,7 @@ export const getLeaderboard = async (limit: number = 100): Promise<LeaderboardEn
   }
 };
 
-export const getLeaderboardByCategory = async (category: string): Promise<LeaderboardEntry[]> => {
+export const getLeaderboardByCategory = async (_category: string): Promise<LeaderboardEntry[]> => {
   // For now, return all leaderboard entries
   // Category filtering can be added later if needed
   return getLeaderboard();

@@ -4,7 +4,8 @@ export interface User {
   email: string;
   firstName: string;
   lastName: string;
-  role: 'student' | 'admin' | 'mentor';
+  // include 'php' role used by the backend
+  role: 'student' | 'admin' | 'mentor' | 'php';
   points: number;
   rank: number;
   avatar?: string;
@@ -26,16 +27,27 @@ export interface Task {
   status: 'pending' | 'in-progress' | 'completed' | 'approved';
   createdBy: string;
   assignedTo?: string;
+  // support both camelCase and snake_case returned by API
   dueDate?: string;
+  due_date?: string;
+  // some endpoints return category_name
+  category_name?: string;
+  // submission object (nullable) for task review flows
+  submission?: TaskSubmission | null;
   createdAt: string;
   attachments?: string[];
 }
 
 export interface TaskSubmission {
-  taskId: string;
-  userId: string;
-  submission: string;
-  attachments?: File[];
+  taskId?: string;
+  userId?: string;
+  // common fields used in the UI
+  submission_text?: string;
+  submission?: string;
+  status?: 'pending' | 'approved' | 'rejected';
+  feedback?: string;
+  points_awarded?: number;
+  attachments?: any[];
 }
 
 // Event Types
@@ -44,14 +56,20 @@ export interface Event {
   title: string;
   description: string;
   category: string;
+  // backend sometimes returns event_date (snake_case)
   date: string;
+  event_date?: string;
   location: string;
   maxParticipants: number;
+  max_participants?: number;
   currentParticipants: number;
+  current_participants?: number;
   points: number;
   status: 'upcoming' | 'ongoing' | 'completed' | 'cancelled';
   createdBy: string;
   createdAt: string;
+  // possible application object returned for the current user
+  application?: EventApplication | null;
 }
 
 export interface EventApplication {

@@ -9,7 +9,6 @@ import {
   Calendar,
   Bell,
   TrendingUp,
-  Award,
 } from "lucide-react";
 import { mockTasks, mockEvents, mockNotifications } from "../data/mockData";
 import { getTasks } from "../services/taskService";
@@ -31,7 +30,7 @@ export const Dashboard = () => {
       const [tasksData, eventsData, notificationsData] = await Promise.all([
         getTasks(),
         getEvents(),
-        getNotifications()
+        getNotifications(),
       ]);
       setTasks(tasksData);
       setEvents(eventsData);
@@ -259,4 +258,3 @@ export const Dashboard = () => {
     </div>
   );
 };
-

@@ -10,7 +10,6 @@ import {
   login as loginService,
   register as registerService,
   logout as logoutService,
-  getCurrentUser,
 } from "../services/authService";
 
 interface AuthContextType {
@@ -120,4 +119,3 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
-

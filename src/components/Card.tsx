@@ -15,9 +15,9 @@ export const Card = ({
   hover = false,
 }: CardProps) => {
   const baseStyles =
-    "bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6";
+    "bg-white/90 dark:bg-gray-800/90 rounded-3xl shadow-soft border border-gray-100/50 dark:border-gray-700/50 p-6 backdrop-blur-md transition-all duration-300";
   const hoverStyles = hover
-    ? "cursor-pointer transition-all duration-200 hover:shadow-xl hover:scale-[1.02]"
+    ? "cursor-pointer hover:shadow-strong hover:scale-[1.02] hover:bg-white/95 dark:hover:bg-gray-800/95"
     : "";
 
   const content = (
